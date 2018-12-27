@@ -5,10 +5,11 @@ import lib.Platform;
 import lib.ui.SearchPageObject;
 import lib.ui.android.AndroidSearchPageObject;
 import lib.ui.ios.IOSSearchPageObject;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class SearchPageObjectFactory {
 
-    public static SearchPageObject get(AppiumDriver driver) {
+    public static SearchPageObject get(RemoteWebDriver driver) {
 
         if(Platform.getInstance().isAndroid()) {
 

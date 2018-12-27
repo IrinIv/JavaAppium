@@ -2,11 +2,12 @@ package lib.ui.ios;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.NavigationUI;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class IOSNavigationUi extends NavigationUI{
 
 
-    public IOSNavigationUi(AppiumDriver driver) {
+    public IOSNavigationUi(RemoteWebDriver driver) {
         super(driver);
     }
 
