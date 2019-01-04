@@ -45,10 +45,14 @@ public class Platform {
         if(this.isAndroid()) {
             return new AndroidDriver(URL, this.getAndroidDesiredCapabilities());
 
-        } else if (this.isIOS()) {
+        }
+
+        else if(this.isIOS()) {
             return new IOSDriver(URL, this.getIOSDesiredCapabilities());
 
-        }  else if (this.isMW()) {
+        }
+
+        else if (this.isMW()) {
             return new ChromeDriver(this.getMWChromeOptions());
 
         }
@@ -109,15 +113,16 @@ public class Platform {
 
         Map<String, Object> deviceMetrics = new HashMap<String, Object>();
         deviceMetrics.put("width", 360);
-        deviceMetrics.put("width", 360);
+        deviceMetrics.put("height", 640);
         deviceMetrics.put("pixelRatio", 3.0);
 
         Map<String, Object> mobileEmulation = new HashMap<String, Object>();
         mobileEmulation.put("deviceMetrics", deviceMetrics);
-        mobileEmulation.put("userAgent", "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D)");
+        mobileEmulation.put("userAgent",
+                "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Mobile Safari/537.36");
 
         ChromeOptions chromeoptions = new ChromeOptions();
-        chromeoptions.addArguments("window-sze=340, 640");
+        chromeoptions.addArguments("window-size=360, 640");
 
         return chromeoptions;
 

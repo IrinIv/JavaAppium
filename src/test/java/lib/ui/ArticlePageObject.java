@@ -48,10 +48,14 @@ abstract public  class ArticlePageObject extends MainPageObject {
             return title_element.getAttribute("text");
         }
 
-        else {
+        else if (Platform.getInstance().isIOS()){
 
             return title_element.getAttribute("name");
         }
+
+        else
+
+            return title_element.getText();
     }
 
 
@@ -64,13 +68,23 @@ abstract public  class ArticlePageObject extends MainPageObject {
                 40);
              }
 
-             else {
+             else if (Platform.getInstance().isIOS()){
 
             this.swipeUpTillElementAppear(FOOTER_ELEMENT,
                 "Cannot find the end of this article",
                 40);
 
         }
+
+        else {
+            this.scrollWebPageUntilElementNotVisible(
+                    FOOTER_ELEMENT,
+                    "Cannot find the end of this article",
+                    40
+
+            );
+        }
+
     }
 
     public void addFirstArticleToMyList(String name_of_folder) {
