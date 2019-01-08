@@ -130,7 +130,7 @@ public class MainPageObject {
             ++already_swiped;
 
             if(already_swiped > max_swipes){
-                Assert.assertTrue(error_message, element.isDisplayed() );
+                Assert.assertTrue(error_message, element.isDisplayed());
             }
 
 
@@ -294,13 +294,11 @@ public class MainPageObject {
                 Object js_result = JSExecutor.executeScript("return window.pageYOffset");
                 element_location_by_y -= Integer.parseInt(js_result.toString());
 
-
-
             }
 
             int screen_size_by_y = driver.manage().window().getSize().getHeight();
 
-            return element_location_by_y > screen_size_by_y;
+            return element_location_by_y < screen_size_by_y;
 
         }
 

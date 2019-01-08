@@ -119,10 +119,10 @@ public class Platform {
         Map<String, Object> mobileEmulation = new HashMap<String, Object>();
         mobileEmulation.put("deviceMetrics", deviceMetrics);
         mobileEmulation.put("userAgent",
-                "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Mobile Safari/537.36");
+                "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19");
 
         ChromeOptions chromeoptions = new ChromeOptions();
-        chromeoptions.addArguments("window-size=360, 640");
+        chromeoptions.addArguments("window-size=340,640");
 
         return chromeoptions;
 

@@ -80,9 +80,7 @@ abstract public  class ArticlePageObject extends MainPageObject {
             this.scrollWebPageUntilElementNotVisible(
                     FOOTER_ELEMENT,
                     "Cannot find the end of this article",
-                    40
-
-            );
+                    40);
         }
 
     }
