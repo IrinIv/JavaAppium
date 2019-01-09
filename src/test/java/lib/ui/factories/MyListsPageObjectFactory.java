@@ -7,6 +7,7 @@ import lib.ui.android.AndroidArticlePageObject;
 import lib.ui.android.AndroidMyListsPageObject;
 import lib.ui.ios.IOSArticlePageObject;
 import lib.ui.ios.IOSMyListsPageObject;
+import lib.ui.mobile_web.MWMyListsPageObject;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class MyListsPageObjectFactory  {
@@ -17,7 +18,12 @@ public class MyListsPageObjectFactory  {
 
             return new AndroidMyListsPageObject(driver);
 
-        } else
+        } else if(Platform.getInstance().isMW()) {
+
+            return new MWMyListsPageObject(driver);
+        }
+
+        else
 
             return new IOSMyListsPageObject(driver);
     }
