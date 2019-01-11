@@ -6,11 +6,9 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 public class MWMyListsPageObject extends MyListsPageObject {
     static {
 
-        ARTICLE_BY_TITLE_TEMPLATE = "xpath://XCUIElementTypeLink[contains(@name, '{TITLE}')]";
-        BUTTON_EDIT = "id:Edit";
-        SAVED_ARTICLE = "id:Saved";
-        BUTTON_UNSAVE = "id:Unsave";
-        SAVED_ARTICLES = "xpath://XCUIElementTypeApplication[@name=\"Wikipedia\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeCollectionView/XCUIElementTypeCell";
+        ARTICLE_BY_TITLE_TEMPLATE = "xpath://ul[contains(@class, 'watchlist')]//h3[contains(text(),'{TITLE}')]";
+        REMOVE_FROM_SAVED_BUTTON = "xpath://ul[contains(@class, 'watchlist')]//h3[contains(text(),'{TITLE}')]/../../div[contains(@class,'watched')]";
+        SAVED_ARTICLES = "xpath://*[@id='mw-content-text']/ul/li/a";
 
     }
 

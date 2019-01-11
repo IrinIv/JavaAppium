@@ -15,6 +15,7 @@ abstract public class MyListsPageObject extends MainPageObject {
         BUTTON_EDIT ,
         SAVED_ARTICLE ,
         BUTTON_UNSAVE,
+        REMOVE_FROM_SAVED_BUTTON,
         SAVED_ARTICLES;
 
 
@@ -70,15 +71,25 @@ abstract public class MyListsPageObject extends MainPageObject {
 
 
 
-    public void swipeByArticleToDelete(String article_title){
+    public void swipeByArticleToDelete(String article_title) throws InterruptedException {
 
 
         String article_xpath = getSavedArticleXpathByTitle(article_title);
 
         this.waitForArticleToAppearByTitle(article_title);
 
-        this.swipeElementToLeft(article_xpath,
-                "Cannot find saved article");
+        if(Platform.getInstance().isAndroid() || (Platform.getInstance().isIOS())) {
+            this.swipeElementToLeft(article_xpath,
+                    "Cannot find saved article");
+
+        } else {
+
+            String remove_locator = getRemoveButtonByTitle(article_title);
+
+            this.waitForElementAndClick(remove_locator,
+                    "Can not click button to remove an article from saved",
+                    10);
+        }
 
         if(Platform.getInstance().isIOS()) {
 
@@ -87,10 +98,22 @@ abstract public class MyListsPageObject extends MainPageObject {
 
         }
 
+        if(Platform.getInstance().isMW()) {
+
+            Thread.sleep(2000);
+            driver.navigate().refresh();
+        }
+
         this.waitForArticleToDisappearByTitle(article_title);
 
 
     }
+
+    protected static String getRemoveButtonByTitle(String article_title) {
+
+        return REMOVE_FROM_SAVED_BUTTON.replace("{TITLE}", article_title);
+
+    };
 
 
     public void selectArticleFromIOSReadingList() {

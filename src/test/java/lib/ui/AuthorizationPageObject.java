@@ -6,7 +6,7 @@ public class AuthorizationPageObject extends MainPageObject {
 
     private static final String
 
-            LOGIN_BUTTON ="xpath://html/body/div[3]/a[text()='Log in']",
+            LOGIN_BUTTON ="css:body > div.drawer.position-fixed.view-border-box.visible.animated > a",
             LOGIN_INPUT = "css:input[name='wpName']",
             PASSWORD_INPUT = "css:input[name='wpPassword']",
             SUBMIT_BUTTON = "css:button#wpLoginAttempt";
@@ -25,7 +25,7 @@ public class AuthorizationPageObject extends MainPageObject {
 
         this.waitForElementAndClick(LOGIN_BUTTON,
                 "Can not find and click auth Button",
-                5);
+                7);
 
     }
 

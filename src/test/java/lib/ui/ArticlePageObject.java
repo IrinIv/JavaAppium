@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import static org.junit.Assert.assertEquals;
+
 abstract public  class ArticlePageObject extends MainPageObject {
 
     public ArticlePageObject(RemoteWebDriver driver) {
@@ -14,10 +16,10 @@ abstract public  class ArticlePageObject extends MainPageObject {
 
     protected static String
             TITLE,
-            TITLE_TMP,
             FOOTER_ELEMENT,
             OPTIONS_BUTTON,
             OPTIONS_ADD_TO_MY_LIST_BUTTON,
+            OPTIONS_REMOVE_FROM_MY_LIST_BUTTON,
             ADD_TO_MY_LIST_OVERLAY,
             MY_LIST_NAME_INPUT,
             MY_LIST_OK_BUTTON,
@@ -25,6 +27,9 @@ abstract public  class ArticlePageObject extends MainPageObject {
             MY_SAVED_LIST,
             CLOSE_DIALOG_BUTTON,
             TABLE_CONTENT_BUTTON;
+
+    private static final String login = "Myuser2019";
+    private static final String password = "learnqa";
 
 
 
@@ -155,24 +160,77 @@ abstract public  class ArticlePageObject extends MainPageObject {
 
     public void addNextArticleToMyIOSList() {
 
+        if(Platform.getInstance().isMW()) {
 
-        this.waitForElementAndClick(OPTIONS_ADD_TO_MY_LIST_BUTTON,
-                   "Cannot find button 'Reading List' on iOS",
-                   5);
+            this.removeArticleFromSavedIfItAdded();
+        }
 
+            this.waitForElementAndClick(OPTIONS_ADD_TO_MY_LIST_BUTTON,
+                    "Cannot find button 'Reading List' on iOS/MW",
+                    10);
 
-       }
+          }
 
     public void closeArticle() {
 
-        this.waitForElementAndClick(CLOSE_ARTICLE_BUTTON,
-                "Cannot find Close button",
-                5);
+        if(Platform.getInstance().isIOS() || (Platform.getInstance().isAndroid())) {
+
+            this.waitForElementAndClick(CLOSE_ARTICLE_BUTTON,
+                    "Cannot find Close button",
+                    5);
+
+        }
+
+        else System.out.println("Method closeArticle() does nothing for Platform: " + Platform.getInstance().getPlatformVar());
+
 
     }
 
+    public void removeArticleFromSavedIfItAdded () {
+
+        if(this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON)) {
+
+            this.waitForElementAndClick(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON,
+                    "Can not click button to remove an article from saved",
+                    10);
+
+            this.waitForElementPresent(OPTIONS_ADD_TO_MY_LIST_BUTTON,
+                    "Can not find button to add an article to saved list after removing",
+                    10);
 
 
+        }
+    }
+
+
+    public void addFirstArticleToMySavedList() {
+
+        this.waitForElementAndClick(OPTIONS_ADD_TO_MY_LIST_BUTTON,
+                "Cannot find button to save to list",
+                5);
+
+        AuthorizationPageObject Auth = new AuthorizationPageObject(driver);
+        Auth.clickAuthButton();
+        Auth.enterLoginData(login, password);
+        Auth.submitForm();
+
+
+        this.removeArticleFromSavedIfItAdded();
+
+        this.waitForElementAndClick(OPTIONS_ADD_TO_MY_LIST_BUTTON,
+                "Cannot find button to save to list",
+                10);
+
+        this.waitForTitleElement();
+
+        String article_title = this.getArticleTitle();
+
+        assertEquals("We are not on the same page after login",
+                article_title,
+                this.getArticleTitle());
+
+
+    }
 }
 
 

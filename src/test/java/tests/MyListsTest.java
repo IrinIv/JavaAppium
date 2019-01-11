@@ -2,10 +2,7 @@ package tests;
 
 import lib.CoreTestCase;
 import lib.Platform;
-import lib.ui.ArticlePageObject;
-import lib.ui.MyListsPageObject;
-import lib.ui.NavigationUI;
-import lib.ui.SearchPageObject;
+import lib.ui.*;
 import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.MyListsPageObjectFactory;
 import lib.ui.factories.NavigationUiFactory;
@@ -15,15 +12,17 @@ import org.junit.Test;
 public class MyListsTest extends CoreTestCase{
 
     private static final String name_of_folder = "Learning programming";
+    private static final String login = "Myuser2019";
+    private static final String password = "learnqa";
 
     @Test
-    public void testSaveArticleToMyList() {
+    public void testSaveArticleToMyList() throws InterruptedException {
 
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);;
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        SearchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
         //ArticlePageObject.waitForTitleElement();
@@ -35,17 +34,24 @@ public class MyListsTest extends CoreTestCase{
             ArticlePageObject.addFirstArticleToMyList(name_of_folder);
         }
 
-        else {
+        else if(Platform.getInstance().isIOS()) {
 
             ArticlePageObject.addFirstArticleToMyIOSList();
 
         }
+
+        if (Platform.getInstance().isMW()) {
+
+            ArticlePageObject.addFirstArticleToMySavedList();
+
+        }
+
         ArticlePageObject.closeArticle();
 
         //add second article
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Pyton");
-        SearchPageObject.clickByArticleWithSubstring("General-purpose, high-level programming language");
+        SearchPageObject.clickByArticleWithSubstring("eneral-purpose, high-level programming language");
 
         //ArticlePageObject.waitForTitleElement();
 
@@ -58,9 +64,11 @@ public class MyListsTest extends CoreTestCase{
 
         }
 
+
         ArticlePageObject.closeArticle();
 
         NavigationUI NavigationUI = NavigationUiFactory.get(driver);
+        NavigationUI.openNavigation();
         NavigationUI.clickMyLists();
 
         MyListsPageObject MyListPageObject = MyListsPageObjectFactory.get(driver);
@@ -71,6 +79,7 @@ public class MyListsTest extends CoreTestCase{
 
             MyListPageObject.openFolderByName(name_of_folder);
         }
+
 
 
         MyListPageObject.swipeByArticleToDelete(article_title);

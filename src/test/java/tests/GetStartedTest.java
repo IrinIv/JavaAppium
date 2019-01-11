@@ -40,7 +40,7 @@ public class GetStartedTest extends CoreTestCase {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        SearchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
 
@@ -50,7 +50,7 @@ public class GetStartedTest extends CoreTestCase {
         //add second article
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Pyton");
-        SearchPageObject.clickByArticleWithSubstring("General-purpose, high-level programming language");
+        SearchPageObject.clickByArticleWithSubstring("eneral-purpose, high-level programming language");
 
         ArticlePageObject.addNextArticleToMyIOSList();
         ArticlePageObject.closeArticle();
