@@ -15,6 +15,10 @@ import lib.Platform;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+import static io.appium.java_client.touch.offset.PointOption.point;
+import static java.time.Duration.ofSeconds;
+
 public class MainPageObject {
 
     protected RemoteWebDriver driver;
@@ -87,20 +91,19 @@ public class MainPageObject {
     public void swipeUp(int timeOfSwipe) {
 
         if (driver instanceof AppiumDriver) {
-            TouchAction action = new TouchAction((AppiumDriver) driver);
+            TouchAction action = new TouchAction((AppiumDriver)driver);
             Dimension size = driver.manage().window().getSize();
-
             int x = size.width / 2;
-            int start_y = (int) (size.height * 0.8);
-            int end_y = (int) (size.height * 0.2);
+            int start_y = (int)(size.height * 0.8);
+            int end_y = (int)(size.height * 0.2);
 
+            action.
+                    press(point(x, start_y)).
+                    waitAction(waitOptions(ofSeconds(timeOfSwipe))).
+                    moveTo(point(x, end_y)).
+                    release().
+                    perform();
 
-            action
-                    .press(x, start_y)
-                    .waitAction(timeOfSwipe)
-                    .moveTo(x, end_y)
-                    .release()
-                    .perform();
         }
 
         else System.out.println("Method swipeUp() does nothing for Platform: " + Platform.getInstance().getPlatformVar());
@@ -133,10 +136,7 @@ public class MainPageObject {
                 Assert.assertTrue(error_message, element.isDisplayed());
             }
 
-
         }
-
-
 
     }
 
@@ -179,14 +179,14 @@ public class MainPageObject {
 
             TouchAction action = new TouchAction((AppiumDriver)driver);
 
-            action.press(right_x, middle_y);
-            action.waitAction(300);
+            action.press(point(right_x, middle_y));
+            action.waitAction(waitOptions(ofSeconds(300)));
 
             if (Platform.getInstance().isAndroid()) {
-                action.moveTo(left_x, middle_y);
+                action.moveTo(point(left_x, middle_y));
             } else {
                 int offset_x = (-1 * element.getSize().getWidth());
-                action.moveTo(offset_x, 0);
+                action.moveTo(point(offset_x, 0));
 
             }
 
@@ -318,7 +318,7 @@ public class MainPageObject {
                 int point_to_click_y = middle_y;
 
                 TouchAction action = new TouchAction((AppiumDriver)driver);
-                action.tap(point_to_click_x, point_to_click_y).perform();
+                action.tap(point(point_to_click_x, point_to_click_y)).perform();
 
             }
 

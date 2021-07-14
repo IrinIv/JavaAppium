@@ -88,11 +88,11 @@ public class Platform {
 
         capabilities.setCapability("platformName", "android");
         capabilities.setCapability("deviceName", "AndroidTestDevice");
-        capabilities.setCapability("platformVersion", "8.0.0");
+        capabilities.setCapability("platformVersion", "11.0");
         capabilities.setCapability("automationName", "Appium");
         capabilities.setCapability("appPackage", "org.wikipedia");
         capabilities.setCapability("appActivity", ".main.MainActivity");
-        capabilities.setCapability("app", "/Users/Irina/Desktop/JavaAppiumAutomation/JavaAppiumAutomation/apks/org.wikipedia.apk");
+        capabilities.setCapability("app", "/Users/irinaivanushkina/Documents/GitHub/JavaAppium/apks/wikipedia-2-7-50362-r-2021-06-04.apk");
 
         return capabilities;
     }
@@ -104,7 +104,7 @@ public class Platform {
         capabilities.setCapability("platformName", "ios");
         capabilities.setCapability("deviceName", "iPhone SE");
         capabilities.setCapability("platformVersion", "11.3");
-        capabilities.setCapability("app", "/Users/Irina/Desktop/JavaAppiumAutomation/JavaAppiumAutomation/apks/Wikipedia.app");
+        capabilities.setCapability("app", "/Users/irinaivanushkina/Documents/GitHub/JavaAppium/apks/Wikipedia.app");
 
         return capabilities;
     }
